@@ -1,0 +1,1 @@
+{\n  "name": "my-portfolio",\n  "version": "1.0.0",\n  "description": "A portfolio website",\n  "main": "index.js",\n  "scripts": {\n    "test": "echo 'Error: no test specified' && exit 1"\n  },\n  "dependencies": {\n    "express": "^4.17.1",\n    "mongodb": "^3.6.4",\n    "dotenv": "^8.2.0",\n    "nodemailer": "^6.4.11"\n  },\n  "author": "Johnrovirgayla",\n  "license": "ISC"\n}
