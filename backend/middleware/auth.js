@@ -1,19 +1,18 @@
 const jwt = require('jsonwebtoken');
 
-// Middleware to verify JWT token
 const authenticateJWT = (req, res, next) => {
-    const token = req.header('Authorization')?.split(' ')[1]; // Get token from headers
+    const token = req.header('Authorization')?.split(' ')[1];
 
     if (!token) {
-        return res.sendStatus(403); // Forbidden
+        return res.status(403).json({ message: 'Token required' });
     }
 
     jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
         if (err) {
-            return res.sendStatus(403); // Forbidden
+            return res.status(403).json({ message: 'Invalid token' });
         }
-        req.user = user; // Save user data to request
-        next(); // Proceed to next middleware
+        req.user = user;
+        next();
     });
 };
 
