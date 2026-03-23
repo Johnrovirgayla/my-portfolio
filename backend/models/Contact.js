@@ -1,16 +1,38 @@
 const mongoose = require('mongoose');
 
-// Define the Contact schema
 const contactSchema = new mongoose.Schema({
-    name: { type: String, required: true },
-    email: { type: String, required: true },
-    subject: { type: String, required: true },
-    message: { type: String, required: true },
-    status: { type: String, enum: ['pending', 'resolved', 'archived'], default: 'pending' },
-    timestamp: { type: Date, default: Date.now }
-});
+    name: {
+        type: String,
+        required: true,
+    },
+    email: {
+        type: String,
+        required: true,
+    },
+    subject: {
+        type: String,
+        required: true,
+    },
+    message: {
+        type: String,
+        required: true,
+    },
+    status: {
+        type: String,
+        enum: ['new', 'read', 'replied', 'archived'],
+        default: 'new',
+    },
+    replies: [{
+        repliedBy: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
+        message: String,
+        repliedAt: {
+            type: Date,
+            default: Date.now,
+        },
+    }],
+}, { timestamps: true });
 
-// Create the Contact model
-const Contact = mongoose.model('Contact', contactSchema);
-
-module.exports = Contact;
+module.exports = mongoose.model('Contact', contactSchema);
