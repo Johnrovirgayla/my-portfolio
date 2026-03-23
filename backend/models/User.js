@@ -31,12 +31,10 @@ const userSchema = new mongoose.Schema({
     }
 }, { timestamps: true });
 
-// Method to compare password
 userSchema.methods.comparePassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-// Middleware to hash the password before saving
 userSchema.pre('save', function(next) {
     if (this.isModified('password') || this.isNew) {
         const salt = bcrypt.genSaltSync(10);
@@ -45,5 +43,4 @@ userSchema.pre('save', function(next) {
     next();
 });
 
-const User = mongoose.model('User', userSchema);
-module.exports = User;
+module.exports = mongoose.model('User', userSchema);
